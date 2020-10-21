@@ -1,0 +1,21 @@
+Input: SourceImage S, stepSizes [s_1, ..., s_k]
+
+Initialize OutputImage T
+
+for ith layer
+    strokeSize R_i = s_1 * ratio
+    Ref_i = Apply Gaussian blur on S with kernel size s_i
+    diff = difference(T, Ref_i)
+
+    for r from 0 to ImageHeight every s_i
+        for c from 0 to ImageWidth every s_i
+            chunk = s_i x s_i area in diff centered at (r, c)
+
+            if total_err(chunk) > THRESHOLD
+                r_1, s_1 = argmax(chunk)
+                makeStroke(T, r_1, s_1, R_i)
+
+return T
+            
+
+
